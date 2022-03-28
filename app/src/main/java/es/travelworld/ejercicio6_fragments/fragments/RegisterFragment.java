@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -22,7 +21,7 @@ import java.util.Objects;
 
 import es.travelworld.ejercicio6_fragments.R;
 import es.travelworld.ejercicio6_fragments.databinding.FragmentRegisterBinding;
-import es.travelworld.ejercicio6_fragments.tools.User;
+import es.travelworld.ejercicio6_fragments.domain.User;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {

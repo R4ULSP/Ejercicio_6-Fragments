@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejercicio6Fragments" >
 
+        <!-- TODO limpiar activitys no usadas -->
         <activity
             android:name=".HomeActivity"
             android:exported="false" />

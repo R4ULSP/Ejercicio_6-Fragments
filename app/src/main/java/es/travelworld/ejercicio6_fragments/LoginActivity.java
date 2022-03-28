@@ -6,18 +6,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import es.travelworld.ejercicio6_fragments.databinding.ActivityLoginBinding;
 import es.travelworld.ejercicio6_fragments.fragments.LoginFragment;
 import es.travelworld.ejercicio6_fragments.fragments.RegisterFragment;
-import es.travelworld.ejercicio6_fragments.tools.User;
+import es.travelworld.ejercicio6_fragments.domain.User;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private User user;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,25 +24,34 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
         user = new User();
+        user.setName("pruebas");
+        user.setLastname("hola");
 
         startLoginFragment();
 
         //TODO Iniciar el fragment del register
+        //TODO hacer pila de fragments
     }
 
     private void startLoginFragment() {
-        LoginFragment loginFragment = new LoginFragment();
-        fragmentTransaction.add(R.id.login_fragment_frame,loginFragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(binding.loginFragmentFrame.getId(),LoginFragment.newInstance(user),"loginFragment")
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
     }
 
     private void startRegisterFragment() {
-        RegisterFragment registerFragment = new RegisterFragment();
-        fragmentTransaction.add(R.id.login_fragment_frame,registerFragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(binding.loginFragmentFrame.getId(),new RegisterFragment(),"registerFragment")
+                .commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //TODO si el fragment en uso es el login sale de la app, si es register invoca a startLoginFragment
     }
 }

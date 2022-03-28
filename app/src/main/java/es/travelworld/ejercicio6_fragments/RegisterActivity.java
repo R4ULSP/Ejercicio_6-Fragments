@@ -1,6 +1,6 @@
 package es.travelworld.ejercicio6_fragments;
 
-import static es.travelworld.ejercicio6_fragments.tools.References.KEY_USER;
+import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +20,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.Objects;
 
 import es.travelworld.ejercicio6_fragments.databinding.ActivityRegisterBinding;
-import es.travelworld.ejercicio6_fragments.tools.User;
+import es.travelworld.ejercicio6_fragments.domain.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 

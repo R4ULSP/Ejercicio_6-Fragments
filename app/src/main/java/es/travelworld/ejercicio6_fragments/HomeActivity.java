@@ -1,6 +1,5 @@
 package es.travelworld.ejercicio6_fragments;
 
-import static es.travelworld.ejercicio6_fragments.tools.References.KEY_USER;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,17 +7,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import es.travelworld.ejercicio6_fragments.databinding.ActivityHomeBinding;
 import es.travelworld.ejercicio6_fragments.fragments.HomeFragment;
 import es.travelworld.ejercicio6_fragments.fragments.WipFragment;
-import es.travelworld.ejercicio6_fragments.tools.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     //TODO Convertir interfaz en fragment
 
     private ActivityHomeBinding binding;
-    private User user;
+   // private User user;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -36,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        user = (User)getIntent().getSerializableExtra(KEY_USER);
+        //user = getIntent().getParcelableExtra(KEY_USER);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -44,8 +39,8 @@ public class HomeActivity extends AppCompatActivity {
 
         startHomeFragment();
 
-        Log.i("---Datos usuario","Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup());
-        Snackbar.make(binding.getRoot(), "Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup(), BaseTransientBottomBar.LENGTH_LONG).show();
+       // Log.i("---Datos usuario","Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup());
+       // Snackbar.make(binding.getRoot(), "Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup(), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     private void startHomeFragment() {

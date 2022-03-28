@@ -1,9 +1,12 @@
 package es.travelworld.ejercicio6_fragments.fragments;
 
+import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
+
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,38 +18,37 @@ import java.util.Objects;
 
 import es.travelworld.ejercicio6_fragments.R;
 import es.travelworld.ejercicio6_fragments.databinding.FragmentLoginBinding;
-import es.travelworld.ejercicio6_fragments.tools.User;
+import es.travelworld.ejercicio6_fragments.domain.User;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private FragmentLoginBinding binding;
     private User user;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static LoginFragment newInstance(User receivedUser) {
+        LoginFragment loginFragment = new LoginFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_USER,receivedUser);
+        loginFragment.setArguments(bundle);
+        return loginFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            user = getArguments().getParcelable(KEY_USER);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         binding = FragmentLoginBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
 
-        //TODO Traer usuario desde la actividad
-
         setListeners();
-
         return view;
     }
 

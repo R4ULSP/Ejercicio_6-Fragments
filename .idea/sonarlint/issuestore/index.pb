@@ -30,9 +30,7 @@ A
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 Å
 Qapp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/HomeFragment.java,8\f\8f929c25b60fc68c87a14a1ebf5bcfe77dc65684
-w
-Gapp/src/main/java/es/travelworld/ejercicio6_fragments/HomeActivity.java,d\8\d8c9b97aeb5a8697f1def25c8e1a97aef8024599
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 v
 Fapp/src/main/java/es/travelworld/ejercicio6_fragments/domain/User.java,f\7\f7053f8cd255f761e0899899e1eec592dc3fafd9
+{
+Kapp/src/main/java/es/travelworld/ejercicio6_fragments/RegisterActivity.java,3\2\32facdf4f9501e89aad84c3a9d5f18ca789e2a41

@@ -1,12 +1,16 @@
 package es.travelworld.ejercicio6_fragments.fragments;
 
 import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
+import static es.travelworld.ejercicio6_fragments.domain.References.LOGIN_ERROR;
+import static es.travelworld.ejercicio6_fragments.domain.References.LOGIN_SUCCESSFUL;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -28,15 +32,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private User user;
     private OnClickItemLoginFragment listener;
 
-    public interface OnClickItemLoginFragment{
+    public interface OnClickItemLoginFragment {
         void loginButton(User user, String code);
+
         void loginNewAccountButton(User user);
     }
 
     public static LoginFragment newInstance(User receivedUser) {
         LoginFragment loginFragment = new LoginFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_USER,receivedUser);
+        bundle.putParcelable(KEY_USER, receivedUser);
         loginFragment.setArguments(bundle);
         return loginFragment;
     }
@@ -44,7 +49,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             user = getArguments().getParcelable(KEY_USER);
         }
     }
@@ -54,7 +59,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater,container,false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         setListeners();
@@ -106,14 +111,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         boolean userValidation = false;
         boolean passwordValidation = false;
 
-        if(binding.loginInputUser.getText()!=null && !binding.loginInputUser.getText().toString().equals("")){
+        if (binding.loginInputUser.getText() != null && !binding.loginInputUser.getText().toString().equals("")) {
             userValidation = true;
         }
-        if(binding.loginInputPassword.getText()!=null && !binding.loginInputPassword.getText().toString().equals("")){
+        if (binding.loginInputPassword.getText() != null && !binding.loginInputPassword.getText().toString().equals("")) {
             passwordValidation = true;
         }
 
-        if(userValidation && passwordValidation){
+        if (userValidation && passwordValidation) {
             binding.loginButton.setEnabled(true);
         }
     }
@@ -122,22 +127,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if (binding.loginForgotPasswordButton.equals(view)) {
             Snackbar.make(binding.getRoot(), R.string.wip_feature, BaseTransientBottomBar.LENGTH_LONG).show();
-        }
-        else if (binding.loginNewAccountButton.equals(view)){
-            //TODO Ir al fragment del register enviando el usuario
+        } else if (binding.loginNewAccountButton.equals(view)) {
             listener.loginNewAccountButton(user);
-        }
-        else if (binding.loginButton.equals(view)){
+        } else if (binding.loginButton.equals(view)) {
             login();
         }
     }
 
     private void login() {
-        if(Objects.requireNonNull(binding.loginInputPassword.getText()).toString().equals(user.getPassword()) && Objects.requireNonNull(binding.loginInputUser.getText()).toString().equals(user.getName())){
-            //TODO Enviar orden para ir al home enviando el usuario
-        }
-        else{
-            //TODO Abrir el fragment del Error
+        if (Objects.requireNonNull(binding.loginInputPassword.getText()).toString().equals(user.getPassword()) && Objects.requireNonNull(binding.loginInputUser.getText()).toString().equals(user.getName())) {
+            listener.loginButton(user,LOGIN_SUCCESSFUL);
+        } else {
+            listener.loginButton(user,LOGIN_ERROR);
         }
     }
 
@@ -149,12 +150,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     *  Inicializa el listener con el contexto recibido
+     * Inicializa el listener con el contexto recibido
      */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(context instanceof OnClickItemLoginFragment){
+        if (context instanceof OnClickItemLoginFragment) {
             listener = (OnClickItemLoginFragment) context;
         }
     }

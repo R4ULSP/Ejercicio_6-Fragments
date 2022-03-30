@@ -2,10 +2,12 @@ package es.travelworld.ejercicio6_fragments.fragments;
 
 import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -32,6 +35,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     private FragmentRegisterBinding binding;
     private String[] ages;
     private User user;
+    private OnClickItemRegisterFragment listener;
+
+    public interface OnClickItemRegisterFragment{
+        void registerJoinButton(User user);
+    }
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -40,7 +48,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     public static RegisterFragment newInstance(User receivedUser) {
         RegisterFragment registerFragment = new RegisterFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_USER,receivedUser);
+        bundle.putParcelable(KEY_USER, receivedUser);
         registerFragment.setArguments(bundle);
         return registerFragment;
     }
@@ -48,22 +56,20 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             user = getArguments().getParcelable(KEY_USER);
+            ages = getArguments().getStringArray("ages");
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(inflater,container,false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-        //TODO Traer usuario desde la actividad
 
         populateAgeEditText();
         setListeners();
-
 
         return view;
     }
@@ -84,7 +90,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 binding.registerNameLayout.setErrorEnabled(false);
-                validateChars(charSequence,binding.registerNameLayout);
+                validateChars(charSequence, binding.registerNameLayout);
                 validateForm();
             }
 
@@ -102,7 +108,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 binding.registerLastnameLayout.setErrorEnabled(false);
-                validateChars(charSequence,binding.registerLastnameLayout);
+                validateChars(charSequence, binding.registerLastnameLayout);
                 validateForm();
             }
 
@@ -113,9 +119,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         });
     }
 
-    private void validateChars(CharSequence charSequence, TextInputLayout textInputLayout){
+    private void validateChars(CharSequence charSequence, TextInputLayout textInputLayout) {
         for (int j = 0; j < charSequence.length(); j++) {
-            switch(charSequence.charAt(j)){
+            switch (charSequence.charAt(j)) {
                 case '!':
                 case '@':
                     textInputLayout.setError(getString(R.string.input_layput_name_error));
@@ -132,26 +138,25 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         boolean lastnameValidation = false;
         boolean ageValidation = false;
 
-        if(binding.registerInputName.getText()!=null && !binding.registerInputName.getText().toString().equals("") && !binding.registerNameLayout.isErrorEnabled()){
+        if (binding.registerInputName.getText() != null && !binding.registerInputName.getText().toString().equals("") && !binding.registerNameLayout.isErrorEnabled()) {
             nameValidation = true;
         }
-        if(binding.registerInputLastname.getText()!=null && !binding.registerInputLastname.getText().toString().equals("") && !binding.registerLastnameLayout.isErrorEnabled()){
+        if (binding.registerInputLastname.getText() != null && !binding.registerInputLastname.getText().toString().equals("") && !binding.registerLastnameLayout.isErrorEnabled()) {
             lastnameValidation = true;
         }
-        if(binding.registerInputAge.getText()!=null && !binding.registerInputAge.getText().toString().equals("") && !binding.registerAgeLayout.isErrorEnabled()){
+        if (binding.registerInputAge.getText() != null && !binding.registerInputAge.getText().toString().equals("") && !binding.registerAgeLayout.isErrorEnabled()) {
             ageValidation = true;
         }
 
-        if(nameValidation && lastnameValidation && ageValidation){
+        if (nameValidation && lastnameValidation && ageValidation) {
             binding.registerJoinButton.setEnabled(true);
         }
     }
 
     private void populateAgeEditText() {
-        //TODO Rellenar el combo
-        /*ages = getResources().getStringArray(R.array.ages);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, ages);
-        binding.registerInputAge.setAdapter(adapter);*/
+        ages = getResources().getStringArray(R.array.ages);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.dropdown_item, ages);
+        binding.registerInputAge.setAdapter(adapter);
     }
 
     @Override
@@ -164,12 +169,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         } else if (view.equals(binding.registerViewConditionsButton)) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developers.google.com/ml-kit/terms"));
             startActivity(intent);
-        } else if(view.equals(binding.registerJoinButton)){
+        } else if (view.equals(binding.registerJoinButton)) {
             user.setName(Objects.requireNonNull(binding.registerInputName.getText()).toString());
             user.setLastname(Objects.requireNonNull(binding.registerInputLastname.getText()).toString());
             user.setAgeGroup(binding.registerInputAge.getText().toString());
 
             //TODO Enviar datos a la actvity
+            listener.registerJoinButton(user);
         }
     }
 
@@ -177,7 +183,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         MaterialTextView materialTextView = (MaterialTextView) view;
         binding.registerAgeLayout.setErrorEnabled(false);
-        if(materialTextView.getText() != ages[ages.length-1]){
+        if (materialTextView.getText() != ages[ages.length - 1]) {
             binding.registerAgeLayout.setError(getString(R.string.input_layout_age_error));
         }
         validateForm();
@@ -187,5 +193,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    /**
+     * Inicializa el listener con el contexto recibido
+     */
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof RegisterFragment.OnClickItemRegisterFragment) {
+            listener = (RegisterFragment.OnClickItemRegisterFragment) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }

@@ -2,11 +2,13 @@ package es.travelworld.ejercicio6_fragments.fragments;
 
 import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
 
+import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private FragmentLoginBinding binding;
     private User user;
+    private OnClickItemLoginFragment listener;
+
+    public interface OnClickItemLoginFragment{
+        void loginButton(User user, String code);
+        void loginNewAccountButton(User user);
+    }
 
     public static LoginFragment newInstance(User receivedUser) {
         LoginFragment loginFragment = new LoginFragment();
@@ -41,8 +49,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater,container,false);
@@ -116,6 +125,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
         else if (binding.loginNewAccountButton.equals(view)){
             //TODO Ir al fragment del register enviando el usuario
+            listener.loginNewAccountButton(user);
         }
         else if (binding.loginButton.equals(view)){
             login();
@@ -136,5 +146,22 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    /**
+     *  Inicializa el listener con el contexto recibido
+     */
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof OnClickItemLoginFragment){
+            listener = (OnClickItemLoginFragment) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }

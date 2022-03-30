@@ -1,5 +1,7 @@
 package es.travelworld.ejercicio6_fragments.fragments;
 
+import static es.travelworld.ejercicio6_fragments.domain.References.KEY_USER;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,13 +37,20 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         // Required empty public constructor
     }
 
-    public static RegisterFragment newInstance() {
-        return new RegisterFragment();
+    public static RegisterFragment newInstance(User receivedUser) {
+        RegisterFragment registerFragment = new RegisterFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_USER,receivedUser);
+        registerFragment.setArguments(bundle);
+        return registerFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            user = getArguments().getParcelable(KEY_USER);
+        }
     }
 
     @Override

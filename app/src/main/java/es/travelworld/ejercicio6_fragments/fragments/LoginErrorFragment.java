@@ -19,15 +19,15 @@ import es.travelworld.ejercicio6_fragments.R;
 public class LoginErrorFragment extends DialogFragment implements View.OnClickListener {
 
 
-    public LoginErrorFragment(){
+    public LoginErrorFragment() {
         // Empty constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstances){
-        View view = inflater.inflate(R.layout.fragment_login_error,container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstances) {
+        View view = inflater.inflate(R.layout.fragment_login_error, container);
 
-        MaterialButton buttonUnderstood = (MaterialButton) view.findViewById(R.id.button_understood);
+        MaterialButton buttonUnderstood = view.findViewById(R.id.button_understood);
         buttonUnderstood.setOnClickListener(this);
 
         return view;

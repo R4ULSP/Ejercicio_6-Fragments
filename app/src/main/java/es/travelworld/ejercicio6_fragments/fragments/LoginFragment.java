@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +35,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         void loginButton(User user, String code);
 
         void loginNewAccountButton(User user);
+    }
+
+    public LoginFragment() {
+        // Required empty public constructor
     }
 
     public static LoginFragment newInstance(User receivedUser) {
@@ -136,9 +139,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void login() {
         if (Objects.requireNonNull(binding.loginInputPassword.getText()).toString().equals(user.getPassword()) && Objects.requireNonNull(binding.loginInputUser.getText()).toString().equals(user.getName())) {
-            listener.loginButton(user,LOGIN_SUCCESSFUL);
+            listener.loginButton(user, LOGIN_SUCCESSFUL);
         } else {
-            listener.loginButton(user,LOGIN_ERROR);
+            listener.loginButton(user, LOGIN_ERROR);
         }
     }
 

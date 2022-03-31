@@ -17,13 +17,13 @@ import es.travelworld.ejercicio6_fragments.R;
 public class WipFragment extends DialogFragment {
 
 
-    public WipFragment(){
+    public WipFragment() {
         // Empty constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstances){
-        return inflater.inflate(R.layout.fragment_wip,container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstances) {
+        return inflater.inflate(R.layout.fragment_wip, container);
     }
 
     @Override

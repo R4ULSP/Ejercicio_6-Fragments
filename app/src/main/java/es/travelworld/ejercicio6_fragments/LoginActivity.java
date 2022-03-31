@@ -33,14 +33,19 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         setContentView(binding.getRoot());
 
         user = new User();
-        user.setName("pruebas");
-        user.setLastname("hola");
 
         startLoginFragment();
     }
 
     private void startLoginFragment() {
         LoginFragment fragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT);
+
+        /*
+         * He comprobado que el id de la instancia es el mismo cuando se abre la app por primera vez y cuando se vuelve del register con los datos.
+         * Cuando se vuelve al método registerJoinButton, desde el RegisterFragment, el user que llega desde el método sobrescribe al de la activity
+         * y se invoca al LoginFragment. En teoria el usuario no se envia porque se usa la primera instancia que si hizo al abrir la app, sin embargo
+         * no se como recibe el usuario.
+         * */
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -75,14 +80,14 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
     @Override
     public void loginButton(User user, String code) {
-        if(code == LOGIN_SUCCESSFUL){
+        if (code.equals(LOGIN_SUCCESSFUL)) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(KEY_USER, user);
             startActivity(intent);
-        }else{
+        } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             LoginErrorFragment loginErrorFragment = LoginErrorFragment.newInstance();
-            loginErrorFragment.show(fragmentManager,null);
+            loginErrorFragment.show(fragmentManager, null);
         }
     }
 
@@ -95,8 +100,6 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
     public void registerJoinButton(User user) {
         this.user = user;
         startLoginFragment();
-        //TODO enviar el usuario al login con los datos del formulario
         Snackbar.make(binding.getRoot(), "Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup(), BaseTransientBottomBar.LENGTH_LONG).show();
-
     }
 }

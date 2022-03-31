@@ -7,4 +7,8 @@ public abstract class References {
     public static final String HOME_FRAGMENT = "homeFragment";
     public static final String LOGIN_SUCCESSFUL = "loginSuccessful";
     public static final String LOGIN_ERROR = "loginError";
+
+    private References(){
+        //Private constructor
+    }
 }

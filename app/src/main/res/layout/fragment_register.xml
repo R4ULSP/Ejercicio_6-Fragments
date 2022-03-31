@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/teal_100">
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -27,22 +28,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/img_registro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:srcCompat="@drawable/img_registro" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/register_avatar_img_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/ic_add_a_photo"
-            android:tint="@color/white"
             android:layout_marginBottom="10dp"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/register_avatar_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/register_avatar_img" />
+            app:srcCompat="@drawable/ic_add_a_photo" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/register_name_layout"

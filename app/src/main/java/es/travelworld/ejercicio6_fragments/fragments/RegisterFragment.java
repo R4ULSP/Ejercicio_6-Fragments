@@ -174,7 +174,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
             user.setLastname(Objects.requireNonNull(binding.registerInputLastname.getText()).toString());
             user.setAgeGroup(binding.registerInputAge.getText().toString());
 
-            //TODO Enviar datos a la actvity
             listener.registerJoinButton(user);
         }
     }

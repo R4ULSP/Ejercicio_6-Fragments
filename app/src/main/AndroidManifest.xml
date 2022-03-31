@@ -10,14 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejercicio6Fragments" >
 
-        <!-- TODO limpiar activitys no usadas -->
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false"
-            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"

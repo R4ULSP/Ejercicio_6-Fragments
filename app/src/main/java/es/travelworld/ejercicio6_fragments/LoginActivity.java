@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
          * no se como recibe el usuario.
          * */
 
+        if(fragment!= null) {
+            Log.d("---PRUEBAS", "Obtención del fragment antes de lanzarlo: " + fragment.toString());
+        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(binding.loginFragmentFrame.getId(),
@@ -60,6 +64,10 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
         currentFragment = LOGIN_FRAGMENT;
+
+        if((LoginFragment) getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT)!= null){
+            Log.d("---PRUEBAS", "Obtención del fragment después de lanzarlo: " + getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT).toString());
+        }
     }
 
     private void startRegisterFragment(User user) {

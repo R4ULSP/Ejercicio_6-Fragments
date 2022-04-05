@@ -24,3 +24,19 @@ A
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+v
+Fapp/src/main/java/es/travelworld/ejercicio6_fragments/domain/User.java,f\7\f7053f8cd255f761e0899899e1eec592dc3fafd9
+‡
+Wapp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/LoginErrorFragment.java,5\d\5d75c25625473754461e9d648847e8f63c51a34d
+€
+Papp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/WipFragment.java,c\9\c924b06a7a1451105eaa8dd11bfa81dd764a3622
+|
+Lapp/src/main/java/es/travelworld/ejercicio6_fragments/domain/References.java,8\9\893a597e0e00fd47a34c3242826ed107ebe93064
+
+Qapp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/HomeFragment.java,8\f\8f929c25b60fc68c87a14a1ebf5bcfe77dc65684
+…
+Uapp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/RegisterFragment.java,b\b\bb05c62c7472ac7cd75d288e803d4d3bc1080140
+‚
+Rapp/src/main/java/es/travelworld/ejercicio6_fragments/fragments/LoginFragment.java,5\4\54ee005ab9ad04ce7b893e4f2a970a07cfc9a225
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e

@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
     private ActivityLoginBinding binding;
     private User user;
+    private String currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         setContentView(binding.getRoot());
 
         user = new User();
+        if(getIntent().getParcelableExtra(KEY_USER) != null){
+            user = getIntent().getParcelableExtra(KEY_USER);
+        }
+
 
         startLoginFragment();
     }
@@ -54,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
                         LOGIN_FRAGMENT)
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
+        currentFragment = LOGIN_FRAGMENT;
     }
 
     private void startRegisterFragment(User user) {
@@ -66,15 +72,16 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
                         REGISTER_FRAGMENT)
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
+        currentFragment = REGISTER_FRAGMENT;
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //TODO si el fragment en uso es el login sale de la app, si es register invoca a startLoginFragment
-        if (getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT) != null &&
-                getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT).isVisible()) {
+        if (currentFragment.equals(LOGIN_FRAGMENT)) {
             finish();
+        }else{
+            startLoginFragment();
         }
     }
 

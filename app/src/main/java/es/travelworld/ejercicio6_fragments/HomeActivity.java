@@ -70,4 +70,11 @@ public class HomeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra(KEY_USER, user);
+        startActivity(intent);
+    }
 }

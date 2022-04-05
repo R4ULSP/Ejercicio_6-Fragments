@@ -47,10 +47,10 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         LoginFragment fragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag(LOGIN_FRAGMENT);
 
         /*
-         * He comprobado que el id de la instancia es el mismo cuando se abre la app por primera vez y cuando se vuelve del register con los datos.
+         * He comprobado que el id de la instancia es el mismo cuando se vuelve del register con los datos y se vuelve a ir a el, la instancia no cambia.
          * Cuando se vuelve al método registerJoinButton, desde el RegisterFragment, el user que llega desde el método sobrescribe al de la activity
          * y se invoca al LoginFragment. En teoria el usuario no se envia porque se usa la primera instancia que si hizo al abrir la app, sin embargo
-         * no se como recibe el usuario.
+         * no se como recibe el usuario con los datos para hacer la validcación del login en el fragment.
          * */
 
         if(fragment!= null) {
